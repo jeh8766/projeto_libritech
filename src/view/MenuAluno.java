@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import dao.EmprestimoDAO;
 import dao.LivroDAO;
+import dao.ReservaDAO;
 import model.Emprestimo;
 import model.Livro;
 
@@ -15,7 +16,7 @@ public class MenuAluno {
     public static void menuAluno() {
         boolean opcao = true;
         do {
-            String[] options = { "Consultar Acervo Público", "Meus empréstimos", "Sair" };
+            String[] options = { "Consultar Acervo Público", "Meus empréstimos", "Realizar Reserva", "Sair" };
             int escolha = JOptionPane.showOptionDialog(null, "Menu do Aluno", "LibriTech",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             switch (escolha) {
@@ -24,6 +25,9 @@ public class MenuAluno {
                     break;
                 case 1:
                     meusEmprestimos();
+                    break;
+                case 2:
+                    realizarReserva();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Encerrando...");
@@ -69,6 +73,26 @@ public class MenuAluno {
             JOptionPane.showMessageDialog(null, texto.toString());
 
         } catch (SQLException e) {
+        }
+    }
+
+    private static void realizarReserva() {
+        String inputLivro = JOptionPane.showInputDialog("ID do Livro:");
+
+        if (inputLivro == null)
+            return;
+
+        try {
+            int idLivro = Integer.parseInt(inputLivro);
+
+            ReservaDAO dao = new ReservaDAO();
+            dao.registrarReserva(idLivro);
+            JOptionPane.showMessageDialog(null, "Livro reservado com sucesso!");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "IDs devem ser números válidos.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao processar reserva: " + e.getMessage());
         }
     }
 }

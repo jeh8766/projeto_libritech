@@ -18,7 +18,6 @@ public class SistemaBiblioteca {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-
                 opcoes,
                 opcoes[0]);
 
@@ -27,7 +26,7 @@ public class SistemaBiblioteca {
         }
 
         String usuarioDB = JOptionPane.showInputDialog(null,
-                "Usuário do Banco (ex: usr_estagiario, usr_aluno):",
+                "Usuário do Banco (ex: user@email.com):",
                 "Login", JOptionPane.QUESTION_MESSAGE);
 
         if (usuarioDB == null) {
@@ -49,7 +48,6 @@ public class SistemaBiblioteca {
 
             Conexao.conectar(usuarioDB, senhaDB);
             Login.realizarLogin(usuarioDB, senhaDB);
-
             JOptionPane.showMessageDialog(null,
                     "Bem-vindo ao LibriTech.",
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
